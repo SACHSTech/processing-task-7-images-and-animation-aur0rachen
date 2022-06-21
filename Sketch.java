@@ -1,7 +1,30 @@
 import processing.core.PApplet;
+import processing.core.PImage; // import the PImage library
+
+  /** 
+   * This program draws three moving objects
+   * Author: Aurora Chen
+   */
 
 public class Sketch extends PApplet {
-	
+	// declare global image variable
+  PImage imgBackground;
+  PImage imgFrog;
+  PImage imgLeaf;
+
+  float fltBackgroundX = 0;
+  float fltBackgroundY = 0;
+
+  float fltFrogX = 200;
+  float fltFrogY = 200;
+  float fltFrogSpeedX = 1;
+  float fltFrogSpeedY = 1;
+
+  float fltCirX = 100;
+  float fltCirY = width/10;
+
+  float fltCirSpeedX = 2;
+  float fltCirSpeedY = 1;
 	
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -16,7 +39,14 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
-    background(210, 255, 173);
+      // Load background
+      imgBackground = loadImage("Background.webp");
+      // Resize background
+      imgBackground.resize(width, height);
+      // Load image
+      imgFrog = loadImage("Frog.png");
+      // Resize frog
+      imgFrog.resize(85, 118);
   }
 
   /**
@@ -24,13 +54,34 @@ public class Sketch extends PApplet {
    */
   public void draw() {
 	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+    background(128);
+    image(imgBackground, fltBackgroundX, fltBackgroundY);
 
-    stroke(255);
-    line(50, 125, 70, 50);  
+    // Draw frog and move
+    image(imgFrog, fltFrogX, fltFrogY);
+    fltFrogX += fltFrogSpeed;
+
+    // Bounce frog off edge of screen
+    if(fltFrogX < 0 || fltFrogX > 400)
+    {
+      fltFrogSpeed *= -1;
+    }
+
+    // draw circle and move
+    ellipse(fltCirX, fltCirY, 20, 20);
+    fltCirX += fltCirSpeedX;
+    fltCirY += fltCirSpeedY;
+
+    if (fltCirX < 0+10 || fltCirX > width-10) {
+      fltCirSpeedX *= -1;
+    }
+
+    if (fltCirY < 0+10  || fltCirY > height-10) {
+      fltCirSpeedY *= -1;
+    }
   }
   
   // define other methods down here.
+
+  
 }
