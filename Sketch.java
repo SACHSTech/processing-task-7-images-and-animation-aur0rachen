@@ -20,9 +20,13 @@ public class Sketch extends PApplet {
   float fltFrogSpeedX = 1;
   float fltFrogSpeedY = 1;
 
+  float fltLeafX = 50;
+  float fltLeafY = 50;
+  float fltLeafSpeedX = 1;
+  float fltLeafSpeedY = 20;
+
   float fltCirX = 100;
   float fltCirY = width/10;
-
   float fltCirSpeedX = 2;
   float fltCirSpeedY = 1;
 	
@@ -39,14 +43,19 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
+      background(128);
       // Load background
-      imgBackground = loadImage("Background.webp");
+      imgBackground = loadImage("Forest.jpg");
       // Resize background
       imgBackground.resize(width, height);
       // Load image
       imgFrog = loadImage("Frog.png");
       // Resize frog
       imgFrog.resize(85, 118);
+      // Load image
+      imgLeaf = loadImage("leaf.png");
+      // Resize leaf
+      imgLeaf.resize(50, 50);
   }
 
   /**
@@ -54,17 +63,16 @@ public class Sketch extends PApplet {
    */
   public void draw() {
 	  
-    background(128);
     image(imgBackground, fltBackgroundX, fltBackgroundY);
 
     // Draw frog and move
     image(imgFrog, fltFrogX, fltFrogY);
-    fltFrogX += fltFrogSpeed;
+    fltFrogX += fltFrogSpeedX;
 
     // Bounce frog off edge of screen
-    if(fltFrogX < 0 || fltFrogX > 400)
+    if(fltFrogX < 0 || fltFrogX > width - imgFrog.width)
     {
-      fltFrogSpeed *= -1;
+      fltFrogSpeedX *= -1;
     }
 
     // draw circle and move
@@ -78,6 +86,15 @@ public class Sketch extends PApplet {
 
     if (fltCirY < 0+10  || fltCirY > height-10) {
       fltCirSpeedY *= -1;
+    }
+
+    image(imgLeaf, fltLeafX, fltLeafY);
+    fltLeafX +=(fltLeafSpeedX);
+    fltLeafY += (Math.sin(0.2 * fltLeafX) ) * 5; 
+
+    if(fltLeafX < 0 || fltLeafX > width - imgLeaf.width)
+    {
+      fltLeafSpeedX *= -1;
     }
   }
   
